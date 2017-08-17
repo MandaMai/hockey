@@ -7,29 +7,31 @@
   let resetNum = document.querySelector("#num-resets");
   let teamOneShots = document.querySelector("#teamone-numshots");
   let teamOneHit = document.querySelector("#teamone-numhits");
+  let teamOneWins=document.querySelector("#teamone-wins");
   let teamTwoShots = document.querySelector("#teamtwo-numshots");
   let teamTwoHit = document.querySelector("#teamtwo-numhits");
-
-  var teamOnePercent = Math.random();
-  var teamTwoPercent = Math.random();
+  let teamTwoWins=document.querySelector("#teamtwo-wins");
+  var teamOnePercent = setPercent();
+  var teamTwoPercent = setPercent();
   let winValue = false;
-  let sound = new Audio("");
+  let yay = document.querySelector("#yay");
+  let intro = document.querySelector("#intro");
+  let reset = document.querySelector("#resetSnd");
+  let noHit = document.querySelector("#noHit");
+
+  function setPercent (){
+    var percent = Math.random();
+    while (percent < .5 || percent > .7){
+      percent = Math.random();
+      console.log(percent);
+    }
+      return percent;
+  }
 
   console.log("team percentages for checking: team 1: " + teamOnePercent + " team 2: " + teamTwoPercent);
 
-  alert("Pick your Teams!");
+  // alert("Pick your Teams!");//testing window loaded correctly
 
-  function validatePercents (teamPercent) {
-    while (teamPercent < .6){
-      teamPercent = Math.random();
-      console.log(teamPercent);
-    }
-    while(teamPercent > .7) {
-      teamPercent = Math.random();
-      console.log(teamPercent);
-    }
-      return teamPercent;
-  }
 
   function winTest(teamPercent) {
     let chance = Math.random();
@@ -40,12 +42,17 @@
     }
   }
 
-  function goal(){
-    sound.play();
-  }
-
   resetButton.addEventListener("click", function(){
     resetNum.innerHTML = parseInt(resetNum.innerHTML) + 1;
+     if(teamOneHit.innerHTML>teamTwoHit.innerHTML){//team one wins
+       console.log ("1 wins team1: " + teamOneHit.innerHTML + " team2: " + teamTwoHit.innerHTML);
+       teamOneWins.innerHTML=parseInt(teamOneWins.innerHTML) + 1;
+     }
+     if (teamOneHit.innerHTML<teamTwoHit.innerHTML){
+       console.log ("2 wins team1: " + teamOneHit.innerHTML + " team2: " + teamTwoHit.innerHTML);
+       teamTwoWins.innerHTML=parseInt(teamTwoWins.innerHTML) + 1;//team two wins
+     }
+
     teamOneShots.innerHTML = 0;
     teamOneHit.innerHTML = 0;
     teamTwoShots.innerHTML = 0;
@@ -53,18 +60,16 @@
   })
 
   teamOneButton.addEventListener("click", function(){
-    teamOnePercent=validatePercents(teamOnePercent);
     winValue = winTest(teamOnePercent);
     teamOneShots.innerHTML = parseInt(teamOneShots.innerHTML) + 1;
     // console.log(winValue);
     console.log(teamOnePercent);
     if(Math.random()>teamOnePercent) {
-    teamOneHit.innerHTML = parseInt(teamOneHit.innerHTML) + 1;
+      teamOneHit.innerHTML = parseInt(teamOneHit.innerHTML) + 1;
     }
   })
 
   teamTwoButton.addEventListener("click", function(){
-    teamTwoPercent=validatePercents(teamTwoPercent);
     winValue = winTest(teamTwoPercent);
     teamTwoShots.innerHTML = parseInt(teamTwoShots.innerHTML) + 1;
     // console.log(winValue);
