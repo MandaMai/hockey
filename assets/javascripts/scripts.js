@@ -18,7 +18,8 @@
   let intro = document.querySelector("#intro");
   let reset = document.querySelector("#resetSnd");
   let noHit = document.querySelector("#noHit");
-
+  intro.play();
+  
   function setPercent (){
     var percent = Math.random();
     while (percent < .5 || percent > .7){
@@ -43,6 +44,7 @@
   }
 
   resetButton.addEventListener("click", function(){
+    resetSnd.play();
     resetNum.innerHTML = parseInt(resetNum.innerHTML) + 1;
      if(teamOneHit.innerHTML>teamTwoHit.innerHTML){//team one wins
        console.log ("1 wins team1: " + teamOneHit.innerHTML + " team2: " + teamTwoHit.innerHTML);
@@ -66,6 +68,9 @@
     console.log(teamOnePercent);
     if(Math.random()>teamOnePercent) {
       teamOneHit.innerHTML = parseInt(teamOneHit.innerHTML) + 1;
+      yay.play();
+    } else {
+      noHit.play();
     }
   })
 
@@ -76,7 +81,10 @@
     console.log(teamTwoPercent);
     if(Math.random()>teamOnePercent) {
     teamTwoHit.innerHTML = parseInt(teamTwoHit.innerHTML) + 1;
-    }
+    yay.play();
+  } else {
+    noHit.play();
+  }
 
   })
 
